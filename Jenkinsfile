@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Deploy Backend Containers') {
             steps {
-                sh '''
+                sh 'sleep 3' '''
                 docker network create app-network || true
                 docker rm -f backend1 backend2 || true
                 docker run -d --name backend1 --network app-network backend-app
@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Deploy NGINX Load Balancer') {
             steps {
-                sh '''
+                sh 'sleep 2' '''
                 docker rm -f nginx-lb || true
                 
                 docker run -d --name nginx-lb --network app-network -p 8081:80 nginx
